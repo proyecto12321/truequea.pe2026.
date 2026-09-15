@@ -1,0 +1,63 @@
+/* ===================================================================
+   TRUEQUEA PE · Colores, tipografía y botones
+   =================================================================== */
+
+/* =====================================================================
+   TRUEQUEA PE · Aplicación completa en un solo archivo
+   Funciona con doble clic. No necesita XAMPP, PHP ni base de datos.
+   ===================================================================== */
+:root{
+  --fondo:#f3f5f9; --superficie:#fff; --superficie2:#f7f9fc; --vidrio:rgba(255,255,255,.88);
+  --borde:#e2e6ee; --borde2:#c9d0dd; --texto:#131722; --sub:#5b6273;
+  --azul:#0a5fc4; --azul2:#e9f1fd; --oro:#a9760f; --oro2:#fdf3e0;
+  --verde:#12703c; --verde2:#e5f5ec; --rojo:#c00f22; --rojo2:#fdeaec;
+  --morado:#6d28d9; --morado2:#f1e9ff;
+  --r1:10px; --r2:14px; --r3:20px;
+  --som:0 1px 2px rgba(16,20,35,.05), 0 8px 24px rgba(16,20,35,.07);
+  --som2:0 20px 60px rgba(16,20,35,.28);
+}
+[data-tema="oscuro"]{
+  --fondo:#0e1117; --superficie:#171b23; --superficie2:#1f242e; --vidrio:rgba(23,27,35,.92);
+  --borde:#2a3140; --borde2:#3b4354; --texto:#eef1f6; --sub:#a0a8b8;
+  --azul:#63a4ff; --azul2:#152740; --oro:#e9b65c; --oro2:#2d2413;
+  --verde:#4fcb8b; --verde2:#10281c; --rojo:#ff7b87; --rojo2:#2c1418;
+  --morado:#b18aff; --morado2:#241a3d;
+  --som:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  --som2:0 20px 60px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--fondo);color:var(--texto);line-height:1.55;min-height:100vh;
+  -webkit-font-smoothing:antialiased;transition:background .25s,color .25s;
+}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input,select,textarea{font:inherit;font-size:15px;color:var(--texto)}
+img{display:block;max-width:100%}
+a{color:var(--azul);text-decoration:none}
+h1,h2,h3,h4{line-height:1.25;letter-spacing:-.015em}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--azul);outline-offset:2px;border-radius:6px}
+.oculto-visual{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ---------- botones ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;
+  border-radius:var(--r2);font-size:15px;font-weight:600;min-height:44px;border:1px solid transparent;
+  transition:transform .12s,background .18s,box-shadow .18s}
+.btn:active{transform:scale(.97)}
+.btn.pri{background:var(--azul);color:#fff;box-shadow:0 4px 14px rgba(10,95,196,.28)}
+.btn.pri:hover{filter:brightness(1.08)}
+[data-tema="oscuro"] .btn.pri{color:#08101c}
+.btn.sec{background:var(--superficie);border-color:var(--borde2)}
+.btn.sec:hover{background:var(--superficie2)}
+.btn.suave{background:var(--superficie2);border-color:var(--borde)}
+.btn.suave:hover{background:var(--borde)}
+.btn.oro{background:linear-gradient(135deg,#f5c451,#d99a1f);color:#3a2a00;box-shadow:0 4px 14px rgba(217,154,31,.35)}
+.btn.mora{background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;box-shadow:0 4px 16px rgba(109,40,217,.35)}
+.btn.verde{background:var(--verde2);color:var(--verde)}
+.btn.rojo{background:var(--rojo2);color:var(--rojo)}
+.btn.blanco{background:#fff;color:#131722}
+.btn.sm{padding:8px 13px;font-size:13.5px;min-height:36px}
+.btn.lg{padding:15px 28px;font-size:16.5px;min-height:52px}
+.btn.full{width:100%}

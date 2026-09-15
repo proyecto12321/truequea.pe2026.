@@ -1,0 +1,173 @@
+========================================================================
+  TRUEQUEA PE — cómo está armado y cómo se usa
+========================================================================
+
+  👉 PARA PROBARLO AHORA: doble clic en  index.html
+
+  Cuenta de administrador:
+      Correo:     admin@truequea.pe
+      Contraseña: admin123
+      ⚠️ Cámbiala apenas entres: Mi cuenta → Perfil → Cambiar contraseña.
+
+  El sistema viene VACÍO: sin usuarios de prueba, sin publicaciones,
+  sin anuncios. Solo tu cuenta de administrador.
+
+
+------------------------------------------------------------------------
+  ESTRUCTURA DE ARCHIVOS
+------------------------------------------------------------------------
+
+  truequea-pe/
+  │
+  ├── index.html              Toda la pantalla (la interfaz)
+  │
+  ├── css/                    El diseño, separado por temas
+  │   ├── 01-base.css         Colores, tipografía y botones
+  │   ├── 02-layout.css       Barra superior, portada, secciones y pie
+  │   ├── 03-listado.css      Categorías, mapa, filtros y tarjetas
+  │   ├── 04-componentes.css  Anuncios, tablas, formularios y ventanas
+  │   ├── 05-secciones.css    Anúnciate, registro, chat, gráficos, VIP
+  │   ├── 06-premium.css      El traje negro y oro del Premium
+  │   └── 07-extras.css       Asistente, música y detalles finales
+  │
+  ├── js/                     La lógica, un archivo por responsabilidad
+  │   ├── 01-config.js        Configuración, categorías, ciudades, modelo
+  │   ├── 02-sync.js          Fusión de datos, borrados y copias
+  │   ├── 03-interfaz.js      Render del listado y el mapa dibujado
+  │   ├── 04-acciones.js      Publicar, trueques, chat y premium
+  │   ├── 05-paneles.js       Mi cuenta, administración y reportes
+  │   ├── 06-funciones.js     Quiero esto, VIP, ranking, confianza
+  │   ├── 07-ubicacion.js     GPS, lectura del Yape, registro exprés
+  │   ├── 08-tendencias.js    Tendencias y puesto número uno
+  │   ├── 09-asistente.js     Asistente, copias y cuentas
+  │   ├── 10-musica.js        Reproductor con comandos por voz
+  │   ├── 11-seguridad.js     Contraseñas, sesiones, roles, WhatsApp
+  │   ├── 12-eventos.js       Todos los botones y el arranque
+  │   ├── 13-servidor.js      Puente opcional con api.php
+  │   └── 14-nube.js          Base de datos en la nube (Firebase)
+  │
+  └── api/
+      └── api.php             Servidor opcional, por si usas hosting PHP
+
+  IMPORTANTE: el orden de los archivos js/ SÍ importa. Están numerados
+  a propósito y así se cargan en index.html. Si agregas uno nuevo, ponlo
+  en el número que le toque y agrégalo al final de index.html.
+
+
+------------------------------------------------------------------------
+  DÓNDE SE GUARDAN LOS DATOS
+------------------------------------------------------------------------
+
+  NO es Supabase. Es FIREBASE (Realtime Database), proyecto:
+      trueque-78e60
+      https://trueque-78e60-default-rtdb.firebaseio.com
+
+  El sistema guarda en este orden, y si uno falla pasa al siguiente:
+      1. Firebase        → todos ven lo mismo, al instante
+      2. api.php         → si lo subes a un hosting con PHP
+      3. El navegador    → siempre, como respaldo sin internet
+
+  Tu sesión (con qué cuenta entraste) NUNCA se sube: queda en tu equipo.
+
+  Para cambiar de proyecto de Firebase: js/14-nube.js, arriba del todo.
+
+
+------------------------------------------------------------------------
+  LOS 3 PASOS PARA QUE SEA SEGURO DE VERDAD
+------------------------------------------------------------------------
+
+  Mientras la base esté abierta, cualquiera con el enlace puede leerla o
+  borrarla. Estos 3 pasos lo cierran:
+
+  1. Publica la web con HTTPS (Firebase Hosting es gratis).
+
+  2. Firebase → Authentication → activa "Google" y agrega tu dominio en
+     Authorized domains. (Sin esto, el botón de Google nunca funciona;
+     por eso ahora se esconde solo cuando abres el archivo local.)
+
+  3. Firebase → Realtime Database → Reglas → pega esto y PUBLICA:
+
+     {
+       "rules": {
+         "truequea": {
+           ".read": "auth != null",
+           ".write": "auth != null",
+           ".validate": "newData.hasChildren(['usuarios','articulos'])"
+         }
+       }
+     }
+
+  Todo esto también lo ves dentro del sistema:
+  Admin → 🎨 Marca → 🔐 Seguridad.
+
+
+------------------------------------------------------------------------
+  LO QUE YA ESTÁ PROTEGIDO
+------------------------------------------------------------------------
+
+  · Las contraseñas NO se guardan escritas. Se guarda una huella
+    (PBKDF2, 150 000 vueltas, con sal propia). Ni tú como administrador
+    puedes leer la clave de alguien: solo ponerle una nueva.
+  · 5 intentos fallidos = 15 minutos de bloqueo.
+  · Si el correo no existe, responde igual que si la clave está mal,
+    para que nadie averigüe qué correos están registrados.
+  · La sesión vence a los 30 días.
+  · Bitácora: quién entró, quién falló, quién cambió qué.
+  · Máximo 3 administradores. Nunca se queda sin ninguno.
+  · Al sincronizar se FUSIONAN los datos: ningún equipo borra lo de otro.
+  · Copias de seguridad automáticas (Admin → Marca → 🛟 Copias).
+
+
+------------------------------------------------------------------------
+  EL PLAN PREMIUM — S/ 5 al mes, todo incluido
+------------------------------------------------------------------------
+
+  Un solo plan, sin letra chica:
+    ❤️ "Quiero esto" con aviso automático
+    👀 Ver quién está interesado, con nombre y qué ofrece
+    🔒 Apartar una publicación 1 hora
+    🥇 Puesto número uno por tendencia (24 horas)
+    🔥 Tendencias: qué se busca, a qué hora, en qué zona
+    💎 Vitrina VIP exclusiva
+    📈 Análisis completo del trueque
+    📍 Ubicación real y distancias en km
+    💬 Chat avanzado con fotos y música
+    🚀 6 impulsos gratis cada mes
+    🚫 Sin publicidad · 👑 Corona y perfil destacado
+
+  Se paga con Yape. El sistema LEE la captura (monto, tu nombre y el
+  número de operación) y activa el Premium solo si todo cuadra.
+  Configúralo en: Admin → 💰 Cobros.
+
+
+------------------------------------------------------------------------
+  EL AVISO POR WHATSAPP AL PUBLICAR
+------------------------------------------------------------------------
+
+  Cada vez que alguien publica algo, le sale una ventana que NO se puede
+  saltar con la X ni con Escape: tiene que tocar "Enviar el aviso por
+  WhatsApp" o "Ya lo envié". El mensaje va listo con el título, qué busca
+  y la ciudad.
+
+  Al registrarse NO sale nada de WhatsApp (eso era lo que molestaba).
+
+  Pon tu número una sola vez en:
+      Admin → 🎨 Marca → 📱 Mi WhatsApp
+
+
+------------------------------------------------------------------------
+  SOBRE EL MAPA Y LA MÚSICA — dos cosas honestas
+------------------------------------------------------------------------
+
+  MAPA: se quitó el mapa de calles. OpenStreetMap bloquea a las apps que
+  usan sus servidores gratuitos (salían los cuadros "Access blocked" y
+  los errores 403). En su lugar hay: el mapa dibujado del sistema (que
+  funciona hasta sin internet), tu ubicación real por GPS, distancias en
+  kilómetros y botones que abren Google Maps.
+
+  MÚSICA: el reproductor toca TUS mp3, los que cargues desde tu equipo.
+  No se pueden incluir canciones de Grupo 5, Bad Bunny, Ozuna ni de
+  nadie: esa música tiene dueño y repartirla sería piratearla. Si pides
+  una que no tienes, el asistente te la abre en YouTube o Spotify.
+  También hay una música ambiental que genera el propio sistema, que sí
+  es libre.

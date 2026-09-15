@@ -1,0 +1,244 @@
+/* ===================================================================
+   TRUEQUEA PE · Anúnciate, registro, chat, gráficos y VIP
+   =================================================================== */
+
+/* =====================================================================
+   NUEVO EN LA VERSIÓN 6
+   ===================================================================== */
+
+/* --- Anúnciate en TRUEQUEA.PE --- */
+.marco-pub{position:relative;border-radius:var(--r3);overflow:hidden;padding:30px 26px 26px;
+  background:linear-gradient(135deg,#0d2b52 0%,#123f74 48%,#0a5fc4 100%);color:#fff}
+.marco-pub::after{content:'';position:absolute;inset:0;opacity:.14;pointer-events:none;
+  background:radial-gradient(circle at 82% 18%,#fff 0,transparent 42%)}
+.marco-cab{position:relative;text-align:center;max-width:620px;margin:0 auto 24px}
+.marco-cab h2{font-size:29px;margin:12px 0 8px;color:#fff;letter-spacing:-.4px}
+.marco-cab p{font-size:15px;opacity:.92;line-height:1.6}
+.marco-cab .tp{font-weight:800}
+.marco-cab .tp b{color:#ffc24d}
+.marco-cab .marca-pub{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:1px;
+  background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.34);color:#fff;
+  padding:4px 12px;border-radius:99px}
+.anuncios-vitrina{position:relative;display:grid;gap:16px;
+  grid-template-columns:repeat(auto-fit,minmax(212px,1fr))}
+.anuncios-vitrina .anuncio{background:var(--superficie);color:var(--texto)}
+.anuncios-vitrina .anuncio-foto{aspect-ratio:4/3}
+/* espacio libre que invita a anunciarse */
+.hueco-pub{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  text-align:center;border-radius:var(--r3);border:1.5px dashed rgba(255,255,255,.45);
+  padding:22px 16px;min-height:200px;cursor:pointer;transition:background .2s}
+.hueco-pub:hover{background:rgba(255,255,255,.09)}
+.hueco-pub .em{font-size:30px}
+.hueco-pub b{font-size:15px}
+.hueco-pub span{font-size:13px;opacity:.85}
+.vitrina-vacia{grid-column:1/-1;text-align:center;padding:34px 18px;border-radius:var(--r3);
+  border:1.5px dashed rgba(255,255,255,.42);font-size:15px}
+.contacto-caja{position:relative;margin-top:22px;background:var(--superficie);color:var(--texto);
+  border-radius:var(--r3);padding:22px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.contacto-caja .quien{flex:1;min-width:230px}
+.contacto-caja h3{font-size:20px;margin-bottom:2px}
+.contacto-caja .cargo{font-size:13.5px;color:var(--sub);margin-bottom:12px}
+.contacto-datos{display:flex;flex-direction:column;gap:7px;font-size:15px;font-weight:600}
+.contacto-datos a,.contacto-datos span{color:var(--texto);display:inline-flex;align-items:center;gap:8px}
+.contacto-datos a:hover{color:var(--azul)}
+.contacto-acc{display:flex;flex-direction:column;gap:10px;min-width:210px}
+.sello-marca{width:66px;height:66px;border-radius:20px;background:linear-gradient(135deg,#ffc24d,#c9922a);
+  display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0}
+
+/* --- Registro fácil --- */
+.campo-ojo{position:relative}
+.campo-ojo .campo{padding-right:46px}
+.ojo{position:absolute;right:8px;top:6px;width:34px;height:34px;border-radius:10px;font-size:16px;
+  display:flex;align-items:center;justify-content:center;background:transparent}
+.ojo:hover{background:var(--superficie2)}
+.pista-pass{font-size:12.5px;color:var(--sub);margin:-6px 0 12px;line-height:1.5}
+.codigo-caja{margin-top:14px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:22px;
+  font-weight:800;letter-spacing:2px;color:var(--azul);background:var(--azul2);
+  border:1.5px dashed var(--azul);border-radius:14px;padding:15px 10px;text-align:center;
+  user-select:all;word-break:break-all}
+
+/* --- Chat Premium --- */
+.chat-pro{border-bottom:1px solid var(--borde);background:var(--superficie2);padding:10px 14px}
+.chat-buscar input{width:100%;padding:9px 13px;border-radius:99px;border:1px solid var(--borde2);
+  background:var(--superficie);color:var(--texto);font:inherit;font-size:13.5px}
+.frases{display:flex;gap:7px;overflow-x:auto;margin-top:9px;padding-bottom:3px}
+.frases button{flex:0 0 auto;font-size:12.5px;font-weight:600;padding:7px 12px;border-radius:99px;
+  background:var(--superficie);border:1px solid var(--borde2);color:var(--sub);white-space:nowrap}
+.frases button:hover{border-color:var(--morado);color:var(--morado)}
+.clip{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:17px;cursor:pointer;background:var(--superficie2);border:1px solid var(--borde2);flex-shrink:0}
+.clip:hover{border-color:var(--morado)}
+.burb img{max-width:200px;border-radius:12px;margin-top:6px;display:block;cursor:zoom-in}
+.burb mark{background:#ffe9a8;color:#7a5a00;border-radius:3px;padding:0 2px}
+
+/* --- Reservas --- */
+.reserva-cinta{display:flex;align-items:center;gap:9px;flex-wrap:wrap;background:var(--morado2);
+  border:1px solid var(--morado);border-radius:14px;padding:11px 14px;font-size:13.5px;
+  font-weight:700;color:var(--morado);margin:12px 0}
+.sello.mora{background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff}
+
+/* --- Gráficos del administrador --- */
+.grafico-caja{width:100%;overflow-x:auto;margin-top:10px}
+.grafico{width:100%;min-width:520px;height:auto;display:block}
+.dos-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mini-cifras{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;padding-top:12px;
+  border-top:1px solid var(--borde)}
+.mini-cifras div{font-size:13px;color:var(--sub)}
+.mini-cifras div b{display:block;font-size:20px;color:var(--texto)}
+.mini-sel{padding:7px 11px;border-radius:10px;border:1px solid var(--borde2);
+  background:var(--superficie);color:var(--texto);font:inherit;font-size:13px;font-weight:600}
+.barra-ciudad{display:flex;align-items:center;gap:10px;margin-bottom:9px;font-size:13.5px}
+.barra-ciudad span:first-child{width:120px;font-weight:700;flex-shrink:0}
+.barra-ciudad .pista{flex:1;height:12px;border-radius:99px;background:var(--superficie2);overflow:hidden}
+.barra-ciudad .pista i{display:block;height:100%;border-radius:99px;
+  background:linear-gradient(90deg,var(--azul),#4d9bff)}
+
+/* --- Mapa Premium --- */
+.mapa-caja.pro{border-color:var(--morado)}
+.mapa-svg.alto{height:520px}
+.pro-fila{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--borde)}
+.pro-fila:last-child{border-bottom:none}
+.pro-fila img{width:52px;height:52px;border-radius:12px;object-fit:cover;flex-shrink:0}
+.pro-fila .info{flex:1;min-width:0}
+.pro-fila .info b{display:block;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pro-fila .info span{display:block;font-size:12.5px;color:var(--sub)}
+.dist{font-size:12.5px;font-weight:800;color:var(--morado);white-space:nowrap}
+
+/* =====================================================================
+   VERSIÓN 7: VIP, ranking, análisis, confianza, impulso y pedidos
+   ===================================================================== */
+.tres{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+
+/* --- tarjetas: sellos nuevos y punto de confianza --- */
+.sello.azulf{background:linear-gradient(135deg,#3b82f6,#0a5fc4);color:#fff}
+.sello.vip{background:linear-gradient(135deg,#8b5cf6,#4c1d95);color:#fff;top:auto;bottom:8px}
+.art.esvip{border-color:rgba(139,92,246,.55)}
+.art.bloqueada .art-foto img{filter:grayscale(.55) brightness(.92)}
+.art-dato.blo{color:var(--morado);font-weight:800}
+.capa-candado{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:4px;background:rgba(12,16,28,.62);backdrop-filter:blur(3px);color:#fff}
+.capa-candado span{font-size:26px}
+.capa-candado b{font-size:12.5px;letter-spacing:.4px}
+.punto{width:8px;height:8px;border-radius:50%;display:inline-block;margin-left:4px;flex-shrink:0}
+.punto.verde{background:#16a34a}.punto.amarillo{background:#d99a1f}.punto.rojo{background:#dc2626}
+
+/* --- vitrina VIP --- */
+.marco-vip{border-radius:var(--r3);padding:26px 22px;border:1px solid rgba(139,92,246,.45);
+  background:linear-gradient(150deg,var(--morado2),var(--superficie) 62%)}
+.marco-vip .sec-cab h2{font-size:26px}
+.vip-txt{font-size:14.5px;color:var(--sub);margin:-6px 0 16px;max-width:640px}
+.vip-aviso{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.vip-chips{display:flex;gap:9px;overflow-x:auto;padding-bottom:8px;margin-bottom:16px}
+.vip-chip{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;padding:9px 14px;
+  border-radius:99px;border:1px solid var(--borde2);background:var(--superficie);
+  font-size:13.5px;font-weight:600}
+.vip-chip b{background:var(--morado2);color:var(--morado);padding:1px 8px;border-radius:99px;font-size:12px}
+.vip-chip.on{border-color:var(--morado);color:var(--morado);box-shadow:0 0 0 2px var(--morado2)}
+
+/* --- top truequeadores --- */
+.top-caja{padding:8px 18px 18px}
+.top-fila{display:flex;align-items:center;gap:12px;padding:11px 8px;border-bottom:1px solid var(--borde);
+  cursor:pointer;border-radius:12px}
+.top-fila:last-of-type{border-bottom:none}
+.top-fila:hover{background:var(--superficie2)}
+.top-fila.pro{background:linear-gradient(90deg,var(--morado2),transparent 70%)}
+.top-fila.podio .medalla{font-size:22px}
+.medalla{width:30px;text-align:center;font-size:16px;flex-shrink:0}
+.medalla .pos{font-size:13px;font-weight:800;color:var(--sub)}
+.top-info{flex:1;min-width:0}
+.top-info b{display:block;font-size:15px}
+.corona{font-size:13px}
+.top-num{font-size:20px;font-weight:800;color:var(--azul);text-align:right;line-height:1.1}
+.top-num small{display:block;font-size:11px;font-weight:600;color:var(--sub)}
+
+/* --- análisis del trueque --- */
+.analisis{border-radius:var(--r2);padding:14px;margin:6px 0 14px;border:1.5px solid var(--borde)}
+.analisis.verde{background:var(--verde2);border-color:var(--verde)}
+.analisis.amarillo{background:var(--oro2);border-color:var(--oro)}
+.analisis.rojo{background:var(--rojo2);border-color:var(--rojo)}
+.an-cab b{font-size:15.5px}
+.an-par{display:flex;align-items:center;gap:12px;margin:10px 0;flex-wrap:wrap}
+.an-par div{flex:1;min-width:110px;background:var(--superficie);border-radius:12px;padding:9px 11px}
+.an-par small{display:block;font-size:11.5px;color:var(--sub)}
+.an-par b{font-size:14px}
+.an-par .fl{font-size:18px}
+.an-consejo{font-size:13.5px;line-height:1.55}
+.an-pro{margin-top:12px;padding-top:12px;border-top:1px dashed var(--borde2)}
+.an-candado{margin-top:12px;padding:12px;border-radius:12px;background:var(--superficie);
+  display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.an-candado b{font-size:14px}.an-candado span{font-size:12.5px;color:var(--sub)}
+.med-fila{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:12.5px}
+.med-fila span:first-child{width:180px;flex-shrink:0}
+.med-fila b{width:120px;text-align:right;font-size:12.5px;flex-shrink:0}
+.med-pista{flex:1;height:9px;border-radius:99px;background:var(--superficie);overflow:hidden}
+.med-pista i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#8b5cf6,#0a5fc4)}
+
+/* --- confianza --- */
+.confianza{border-radius:var(--r2);padding:13px 15px;margin:12px 0;border:1.5px solid var(--borde);
+  background:var(--superficie2)}
+.confianza.verde{border-color:var(--verde)}
+.confianza.amarillo{border-color:var(--oro)}
+.confianza.rojo{border-color:var(--rojo)}
+.conf-cab{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14.5px}
+.conf-num{font-size:13px;font-weight:800;color:var(--sub)}
+.conf-barra{height:8px;border-radius:99px;background:var(--borde);overflow:hidden;margin:9px 0}
+.conf-barra i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#dc2626,#d99a1f,#16a34a)}
+.conf-lista{list-style:none;display:flex;flex-direction:column;gap:4px;font-size:12.5px}
+.conf-lista .si{color:var(--verde)}
+.conf-lista .no{color:var(--rojo)}
+.conf-pie{font-size:11.5px;color:var(--sub);margin-top:9px}
+
+/* --- pedidos "Quiero esto" --- */
+.deseo{border:1px solid var(--borde);border-radius:var(--r2);padding:13px 15px;margin-bottom:11px;
+  background:var(--superficie2)}
+.deseo.apagado{opacity:.6}
+.deseo-cab{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:5px}
+.deseo-cab b{font-size:14.5px}
+.deseo-of{font-size:13.5px;margin-bottom:7px}
+.deseo-hit{font-size:13px;font-weight:700;color:var(--verde);margin-bottom:7px}
+.deseo-hits{display:flex;gap:8px;overflow-x:auto;padding-bottom:5px}
+.hit{flex:0 0 auto;width:104px;text-align:left;background:var(--superficie);border:1px solid var(--borde);
+  border-radius:12px;overflow:hidden}
+.hit img{width:100%;height:66px;object-fit:cover}
+.hit span{display:block;padding:6px 8px;font-size:11.5px;font-weight:600;line-height:1.3;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.deseo-acc{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+
+/* --- interesados --- */
+.inter-lista{margin-top:12px}
+.borroso{filter:blur(4px);opacity:.6;pointer-events:none;user-select:none;margin-top:12px;max-height:180px;
+  overflow:hidden}
+.candado{text-align:center;padding:20px;border-radius:var(--r2);background:var(--morado2);
+  border:1.5px dashed var(--morado);margin-top:-40px;position:relative}
+.candado .em{font-size:30px}
+.candado b{display:block;font-size:16px;margin:4px 0 6px}
+.candado p{font-size:13.5px;color:var(--sub);max-width:420px;margin:0 auto 12px}
+
+/* --- impulso y pago --- */
+.imp-vista{display:flex;gap:12px;align-items:center;background:var(--superficie2);border-radius:var(--r2);
+  padding:12px;margin-bottom:14px;border:1px solid var(--borde)}
+.imp-vista img{width:74px;height:74px;border-radius:12px;object-fit:cover}
+.imp-vista b{display:block;font-size:15px;margin:5px 0 2px}
+.imp-vista .sello{position:static;display:inline-block}
+.pago-resumen{display:flex;gap:14px;align-items:center;background:var(--superficie2);
+  border:1px solid var(--borde);border-radius:var(--r2);padding:13px;margin-bottom:14px;flex-wrap:wrap}
+.pago-resumen p{font-size:14px}
+.pago-monto{color:var(--morado);font-size:18px}
+.pago-resumen .yape-qr{width:104px;height:104px;border-radius:12px;object-fit:cover}
+
+/* --- seguro --- */
+.seg-lista{display:flex;flex-direction:column;gap:9px;margin:12px 0}
+.seg-lista div{background:var(--superficie2);border:1px solid var(--borde);border-radius:12px;padding:10px 13px}
+.seg-lista b{display:block;font-size:14px}
+.seg-lista span{font-size:12.5px;color:var(--sub)}
+
+@media (max-width:800px){
+  .dos-cols{grid-template-columns:1fr}
+  .tres{grid-template-columns:1fr}
+  .mapa-svg.alto{height:400px}
+  .marco-pub{padding:24px 16px}
+  .marco-cab h2{font-size:23px}
+  .contacto-acc{width:100%}
+  .med-fila span:first-child{width:120px}
+  .med-fila b{width:90px}
+}

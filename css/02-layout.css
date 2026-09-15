@@ -1,0 +1,76 @@
+/* ===================================================================
+   TRUEQUEA PE · Barra superior, portada, secciones y pie
+   =================================================================== */
+
+/* ---------- barras superiores ---------- */
+.cinta{background:linear-gradient(90deg,var(--azul),#1478e8);color:#fff;text-align:center;
+  font-size:13.5px;padding:9px 14px}
+[data-tema="oscuro"] .cinta{color:#06101f}
+.nav{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:12px;padding:10px 22px;
+  background:var(--vidrio);backdrop-filter:blur(14px);border-bottom:1px solid var(--borde)}
+.marca{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:800;color:var(--texto)}
+.marca:hover{text-decoration:none}
+.marca .logo{width:38px;height:38px;border-radius:11px;object-fit:cover;
+  box-shadow:0 3px 10px rgba(16,20,35,.2)}
+.marca b{color:var(--oro)}
+.buscador{flex:1;max-width:440px;position:relative}
+.buscador input{width:100%;padding:11px 14px 11px 40px;border-radius:var(--r2);
+  border:1px solid var(--borde2);background:var(--superficie);outline:none}
+.buscador input:focus{border-color:var(--azul);box-shadow:0 0 0 3px var(--azul2)}
+.buscador .lupa{position:absolute;left:13px;top:50%;transform:translateY(-50%);opacity:.5}
+.nav-der{display:flex;align-items:center;gap:8px;margin-left:auto}
+.ico-btn{position:relative;width:42px;height:42px;border-radius:var(--r2);display:flex;
+  align-items:center;justify-content:center;font-size:18px;background:var(--superficie2);
+  border:1px solid var(--borde)}
+.ico-btn:hover{background:var(--borde)}
+.globo{position:absolute;top:-5px;right:-5px;background:var(--rojo);color:#fff;font-size:11px;
+  font-weight:700;min-width:19px;height:19px;padding:0 5px;border-radius:99px;display:flex;
+  align-items:center;justify-content:center;border:2px solid var(--fondo)}
+.avatar{width:42px;height:42px;border-radius:50%;overflow:hidden;flex:0 0 auto;cursor:pointer;
+  background:linear-gradient(135deg,var(--azul),#1478e8);color:#fff;display:flex;align-items:center;
+  justify-content:center;font-weight:700;font-size:15px}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.avatar.pro{box-shadow:0 0 0 2px var(--superficie),0 0 0 4px #d99a1f}
+.menu{position:relative}
+.menu-caja{position:absolute;right:0;top:52px;min-width:262px;padding:8px;z-index:80;display:none;
+  background:var(--superficie);border:1px solid var(--borde);border-radius:var(--r3);box-shadow:var(--som2)}
+.menu-caja.abierto{display:block}
+.menu-cab{padding:12px;border-bottom:1px solid var(--borde);margin-bottom:6px}
+.menu-cab b{display:block;font-size:15px}
+.menu-cab small{color:var(--sub);font-size:12.5px}
+.menu-caja button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:11px 12px;
+  border-radius:var(--r1);font-size:14.5px}
+.menu-caja button:hover{background:var(--superficie2)}
+.menu-caja button.rojo{color:var(--rojo)}
+
+/* ---------- portada ---------- */
+.portada{position:relative;overflow:hidden;color:#fff;text-align:center;padding:66px 20px 76px;
+  background:linear-gradient(155deg,#0b1a30 0%,#132540 50%,#2b2415 100%)}
+.portada .patron{position:absolute;inset:0;opacity:.15;background-size:270px}
+.portada .ilus{position:absolute;inset:0;background-repeat:no-repeat;background-position:center 44%;
+  background-size:min(720px,94%);opacity:.32}
+.portada::after{content:"";position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);
+  width:min(880px,98%);height:min(460px,88%);pointer-events:none;
+  background:radial-gradient(ellipse at center,rgba(7,12,22,.8),rgba(7,12,22,.42) 46%,transparent 74%)}
+.portada .dentro{position:relative;z-index:2;max-width:740px;margin:0 auto}
+.portada h1{font-size:clamp(30px,5.4vw,50px);font-weight:800;margin-bottom:14px;
+  text-shadow:0 3px 22px rgba(0,0,0,.45)}
+.portada h1 em{font-style:normal;color:#f6cd6f}
+.portada p{font-size:17px;color:rgba(255,255,255,.85);max-width:520px;margin:0 auto 26px}
+.portada-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cifras{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+.cifras div{text-align:center}
+.cifras b{display:block;font-size:26px;font-weight:800}
+.cifras span{font-size:13px;color:rgba(255,255,255,.68)}
+
+/* ---------- estructura ---------- */
+.caja{max-width:1220px;margin:0 auto;padding:0 22px}
+.seccion{padding:38px 0}
+.sec-cab{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.sec-cab h2{font-size:23px}
+.ayuda{font-size:14px;color:var(--sub)}
+.tarjeta{background:var(--superficie);border:1px solid var(--borde);border-radius:var(--r3);
+  padding:20px;margin-bottom:16px}
+.tarjeta h3{font-size:17px;margin-bottom:4px}
+.nota{font-size:13.5px;color:var(--sub);margin-bottom:14px}
+.sep{border:none;border-top:1px solid var(--borde);margin:18px 0}

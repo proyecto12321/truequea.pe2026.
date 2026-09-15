@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="es" data-tema="claro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Truequea PE — Intercambia lo que tienes por lo que necesitas</title>
+<meta name="theme-color" content="#0a5fc4">
+
+<!-- hojas de estilo -->
+<link rel="stylesheet" href="css/01-base.css">
+<link rel="stylesheet" href="css/02-layout.css">
+<link rel="stylesheet" href="css/03-listado.css">
+<link rel="stylesheet" href="css/04-componentes.css">
+<link rel="stylesheet" href="css/05-secciones.css">
+<link rel="stylesheet" href="css/06-premium.css">
+<link rel="stylesheet" href="css/07-extras.css">
+</head>
+<body>
+
+<div class="cinta" id="cinta">Trueque justo y cercano — el valor de tus cosas lo decides tú</div>
+
+<nav class="nav">
+  <a class="marca" href="#" data-ir="inicio">
+    <img class="logo" id="logoNav" alt="Truequea PE">
+    <span id="nombreNav">Truequea<b>PE</b></span>
+  </a>
+  <div class="buscador">
+    <span class="lupa">🔍</span>
+    <label class="oculto-visual" for="buscador">Buscar</label>
+    <input type="search" id="buscador" placeholder="¿Qué estás buscando?" autocomplete="off">
+  </div>
+  <div class="nav-der" id="navDer"></div>
+</nav>
+
+<!-- ==================== INICIO ==================== -->
+<main class="vista on" id="v-inicio">
+  <header class="portada">
+    <div class="patron" id="patronPortada"></div>
+    <div class="ilus" id="ilusPortada"></div>
+    <div class="dentro">
+      <h1>Intercambia lo que tienes<br>por lo que <em>necesitas</em></h1>
+      <p>Publica tu artículo, mira en el mapa quién está cerca y cierren el trueque conversando aquí mismo.</p>
+      <div class="portada-btns">
+        <button class="btn blanco lg" onclick="irListado()">Ver artículos</button>
+        <button class="btn pri lg" data-accion="publicar">Publicar el mío</button>
+      </div>
+      <div class="cifras" id="cifrasPortada"></div>
+    </div>
+  </header>
+
+  <div class="caja">
+    <!-- categorías -->
+    <section class="seccion">
+      <div class="sec-cab">
+        <h2>Explora por categoría</h2>
+        <div class="flechas">
+          <button class="flecha" id="catIzq" aria-label="Anterior">‹</button>
+          <button class="flecha" id="catDer" aria-label="Siguiente">›</button>
+        </div>
+      </div>
+      <div class="carrusel" id="categorias"></div>
+    </section>
+
+    <!-- mapa -->
+    <section class="seccion">
+      <div class="sec-cab">
+        <h2>📍 Mapa de trueques</h2>
+        <span class="ayuda">Toca un punto para ver el artículo</span>
+      </div>
+      <div class="mapa-caja">
+        <svg class="mapa-svg" id="mapa" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid slice"></svg>
+        <div class="globo-mapa" id="globoMapa"></div>
+        <div class="mapa-leyenda">
+          <span><i style="background:#0a5fc4"></i>Artículos disponibles</span>
+          <span><i style="background:#d99a1f"></i>Destacados</span>
+          <span><i style="background:#12703c"></i>Zonas seguras</span>
+          <span style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn pri sm" id="btnGpsMapa">📍 Usar mi ubicación real</button>
+            <button class="btn suave sm" id="btnMiUbic">Ver mi ubicación</button>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- listado -->
+    <section class="seccion" id="listado">
+      <div id="bannerPub"></div>
+      <div class="sec-cab">
+        <h2>Artículos disponibles</h2>
+        <span class="ayuda" id="conteo"></span>
+      </div>
+      <div class="filtros">
+        <div class="filtros-fila">
+          <div class="f-campo"><label for="fCat">Categoría</label><select id="fCat"></select></div>
+          <div class="f-campo"><label for="fCiudad">Ciudad</label><select id="fCiudad"></select></div>
+          <div class="f-campo"><label for="fCond">Condición</label>
+            <select id="fCond"><option value="">Cualquiera</option><option value="nuevo">Nuevo</option>
+              <option value="como_nuevo">Como nuevo</option><option value="usado">Usado</option>
+              <option value="para_reparar">Para reparar</option></select></div>
+          <div class="f-campo"><label for="fOrden">Ordenar</label>
+            <select id="fOrden"><option value="recientes">Más recientes</option>
+              <option value="antiguos">Más antiguos</option><option value="reputacion">Mejor reputación</option>
+              <option value="cerca">Más cerca de mí</option></select></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn suave sm" id="btnLimpiar">Limpiar</button>
+          </div>
+        </div>
+        <div class="chips" id="chips"></div>
+      </div>
+      <div class="grilla" id="lista"></div>
+    </section>
+
+    <!-- ==================== TRUEQUES VIP ==================== -->
+    <section class="seccion" id="vip">
+      <div class="marco-vip">
+        <div class="sec-cab">
+          <h2>💎 TRUEQUES VIP</h2>
+          <div id="vipAviso" class="vip-aviso"></div>
+        </div>
+        <p class="vip-txt">Una vitrina aparte para lo bueno. Todos pueden mirarla, pero solo las
+          cuentas Premium publican y proponen aquí.</p>
+        <div class="vip-chips" id="vipChips"></div>
+        <div class="grilla" id="vipLista"></div>
+      </div>
+    </section>
+
+    <!-- ==================== TOP TRUEQUEADORES ==================== -->
+    <section class="seccion" id="top">
+      <div class="sec-cab">
+        <h2>🏆 Top truequeadores</h2>
+        <span class="ayuda">Quiénes cierran más trueques en la zona</span>
+      </div>
+      <div class="tarjeta top-caja">
+        <div id="topLista"></div>
+        <p class="nota" style="margin-top:12px">👑 = cuenta Premium. Completa trueques y pide tus
+          estrellas para subir en la tabla.</p>
+      </div>
+    </section>
+
+    <!-- ==================== ANÚNCIATE EN TRUEQUEA.PE ==================== -->
+    <section class="seccion" id="anunciate">
+      <div class="marco-pub">
+        <div class="marco-cab">
+          <span class="marca-pub">ESPACIO PUBLICITARIO</span>
+          <h2>Anúnciate en <span class="tp">TRUEQUEA<b>.PE</b></span></h2>
+          <p>Los negocios de Chincha e Ica aparecen aquí. Toca cualquier anuncio para ver
+             el teléfono y escribir por WhatsApp.</p>
+        </div>
+
+        <div class="anuncios-vitrina" id="vitrinaPub"></div>
+
+        <div class="contacto-caja" id="contactoCaja"></div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="pie">
+    <div class="caja">
+      <div class="pie-cols">
+        <div>
+          <a class="marca" href="#" data-ir="inicio"><img class="logo" id="logoPie" alt=""><span id="nombrePie">Truequea<b>PE</b></span></a>
+          <p>Plataforma de intercambio de bienes y servicios. Publica, propone, confirma y califica.</p>
+        </div>
+        <div><h4>Plataforma</h4>
+          <button data-ir="inicio">Inicio</button>
+          <button data-accion="publicar">Publicar artículo</button>
+          <button data-accion="premium">⭐ Hazte Premium</button></div>
+        <div><h4>Ayuda</h4>
+          <button data-accion="asistente">🤖 Asistente: ¿cómo funciona?</button>
+          <button data-accion="musica">🎧 Música</button>
+          <button data-info="faq">Preguntas frecuentes</button>
+          <button data-info="zonas">Zonas seguras</button>
+          <button data-info="reiniciar">Reiniciar datos de prueba</button></div>
+        <div><h4>Legal</h4>
+          <button data-info="terminos">Términos y condiciones</button>
+          <button data-info="privacidad">Privacidad (Ley 29733)</button></div>
+      </div>
+      <div class="pie-base">© <span id="anio"></span> Truequea PE · Todo funciona en tu navegador ·
+        <button id="btnTema" style="color:var(--azul);font-weight:700">🌗 Cambiar tema</button></div>
+    </div>
+  </footer>
+</main>
+
+<!-- ==================== PREMIUM ==================== -->
+<main class="vista" id="v-premium">
+  <div class="caja">
+    <div class="cab-panel">
+      <div><h2>⭐ Truequea PE Premium</h2><p>Más alcance para tus trueques por el precio de un caramelo</p></div>
+      <button class="btn suave" data-ir="inicio">← Volver</button>
+    </div>
+
+    <div class="pro-hero">
+      <div class="barra-rgb hero-barra"></div>
+      <div class="hero-luz"></div>
+      <div class="hero-txt">
+        <span class="pro-badge">👑 PREMIUM</span>
+        <h2>Negro, dorado y con todo a favor</h2>
+        <p>Con la cuenta gratis intercambias tranquilo. Con Premium apartas, avisas, ves quién
+           te busca y sales primero — con la web entera vestida de oro.</p>
+        <div class="pro-precio">S/ <span id="precioPro">5.00</span> <small>/ mes</small></div>
+        <div class="hero-btns">
+          <button class="btn oro lg" data-accion="pagar-premium">👑 Activar con Yape</button>
+          <span class="hero-nota">El sistema lee tu captura y te activa solo</span>
+        </div>
+      </div>
+      <!-- escena 3D: la tarjeta Premium girando -->
+      <div class="escena3d">
+        <div class="cubo">
+          <div class="ca fr"><span>👑</span><b>PREMIUM</b><small>Truequea PE</small></div>
+          <div class="ca at"><span>💎</span><b>VIP</b><small>Vitrina exclusiva</small></div>
+          <div class="ca de"><span>🔒</span><b>APARTA</b><small>1 hora tuyo</small></div>
+          <div class="ca iz"><span>🎯</span><b>QUIERO</b><small>Avisos solos</small></div>
+          <div class="ca ar"><span>🚀</span><b>TOP</b><small>Primer lugar</small></div>
+          <div class="ca ab"><span>🗺️</span><b>MAPA</b><small>Ubicación real</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pro-lista">
+      <div class="pro-item"><span class="ic">❤️</span><div><b>“Quiero esto” con aviso automático</b>
+        <span>Dices qué buscas y qué entregas; el sistema te avisa apenas alguien lo publique</span></div></div>
+      <div class="pro-item"><span class="ic">👀</span><div><b>Ver quién está interesado</b>
+        <span>Los gratuitos ven cuántos son; tú ves sus nombres y qué te ofrecen</span></div></div>
+      <div class="pro-item"><span class="ic">🔒</span><div><b>Apartar por 1 hora</b>
+        <span>Nadie más puede proponer ni escribir mientras tú negocias</span></div></div>
+      <div class="pro-item"><span class="ic">💎</span><div><b>Vitrina VIP exclusiva</b>
+        <span>Laptops, iPhones, consolas y cámaras: solo Premium participa</span></div></div>
+      <div class="pro-item"><span class="ic">📈</span><div><b>Análisis completo del trueque</b>
+        <span>Referencia, demanda, popularidad y qué tan fácil es volver a cambiarlo</span></div></div>
+      <div class="pro-item"><span class="ic">🗺️</span><div><b>Mapa avanzado con ubicación real</b>
+        <span>El punto exacto desde donde publicaron y a cuántos km está de ti</span></div></div>
+      <div class="pro-item"><span class="ic">💬</span><div><b>Chat avanzado</b>
+        <span>Fotos, frases rápidas, buscador y confirmación de leído</span></div></div>
+      <div class="pro-item"><span class="ic">👑</span><div><b>Perfil destacado y corona</b>
+        <span>Sales resaltado en el Top truequeadores y en cada publicación</span></div></div>
+      <div class="pro-item"><span class="ic">🚫</span><div><b>Sin publicidad e ilimitado</b>
+        <span>Publicas todo lo que quieras y navegas sin anuncios</span></div></div>
+    </div>
+
+    <!-- 📊 Tendencias (incluido en el Premium) -->
+    <div id="panelSuper" hidden></div>
+
+    <!-- Panel exclusivo para quien ya es Premium -->
+    <div id="panelPro" hidden>
+      <div class="sec-cab" style="margin-top:26px">
+        <h2>👑 Tu plus Premium</h2>
+        <span class="ayuda">Lo que solo tú tienes</span>
+      </div>
+      <div id="plusPro"></div>
+      <div class="sec-cab" style="margin-top:26px">
+        <h2>🗺️ Mapa avanzado Premium</h2>
+        <span class="ayuda">Ubicación real de cada publicación</span>
+      </div>
+      <div class="mapa-caja pro">
+        <svg class="mapa-svg alto" id="mapaPro" viewBox="0 0 800 520" preserveAspectRatio="xMidYMid slice"></svg>
+        <div class="globo-mapa" id="globoPro"></div>
+        <div class="mapa-leyenda">
+          <span><i style="background:#7b3fe4"></i>Tú</span>
+          <span><i style="background:#0a5fc4"></i>Publicaciones</span>
+          <span><i style="background:#d99a1f"></i>Reservadas por ti</span>
+          <span style="margin-left:auto">
+            <label class="et" style="display:inline;margin:0 6px 0 0" for="proRadio">Radio</label>
+            <select id="proRadio" class="mini-sel">
+              <option value="0">Todo</option><option value="3">3 km</option>
+              <option value="10">10 km</option><option value="30">30 km</option>
+              <option value="80">80 km</option></select>
+          </span>
+        </div>
+      </div>
+      <div class="tarjeta">
+        <h3>📍 Lo más cerca de ti</h3>
+        <div id="cercaPro"></div>
+      </div>
+      <div class="tarjeta">
+        <div class="sec-cab" style="margin-bottom:6px">
+          <h3>❤️ Mis pedidos “Quiero esto”</h3>
+          <button class="btn mora sm" data-accion="nuevo-deseo">+ Quiero esto</button>
+        </div>
+        <p class="nota">Dinos qué buscas y qué entregas a cambio. Cuando alguien publique algo
+          parecido te llega el aviso al instante, sin que tengas que estar mirando.</p>
+        <div id="listaDeseos"></div>
+      </div>
+
+      <div class="tarjeta">
+        <h3>🔒 Mis reservas activas</h3>
+        <p class="nota">Apartas una publicación hasta 1 hora: mientras dure, los demás la ven pero
+          no pueden proponer ni escribirle al dueño. Al vencer se libera sola.</p>
+        <div id="reservasPro"></div>
+      </div>
+      <div class="tarjeta">
+        <h3>🔔 Avisos</h3>
+        <div class="switch"><div><b>Avisarme por WhatsApp</b>
+          <small>Al tocar un aviso se abre WhatsApp con el mensaje ya escrito</small></div>
+          <input type="checkbox" id="proAvisos" checked></div>
+        <div id="seguidosPro" style="margin-top:12px"></div>
+      </div>
+    </div>
+
+    <!-- un solo plan: Premium con todo -->
+    <div class="planes uno">
+      <div class="plan super">
+        <span class="plan-eti">👑 PREMIUM</span>
+        <div class="plan-precio">S/ <span data-precio-pro>5</span><small>/mes</small></div>
+        <p class="plan-sub">Un solo plan. Todo incluido. Sin letra chica.</p>
+        <ul>
+          <li>❤️ <b>“Quiero esto”</b> — dices qué buscas y te avisa solo cuando aparece</li>
+          <li>👀 <b>Ver quién está interesado</b> en tus cosas, con nombre y qué te ofrece</li>
+          <li>🔒 <b>Apartar</b> una publicación 1 hora mientras negocias</li>
+          <li>🥇 <b>Puesto número uno</b> por tendencia, 24 horas</li>
+          <li>🔥 <b>Tendencias</b>: qué se busca, a qué hora y en qué zona</li>
+          <li>💎 Vitrina <b>VIP</b> exclusiva</li>
+          <li>📈 Análisis completo del trueque</li>
+          <li>📍 Ubicación real y distancias en km</li>
+          <li>💬 Chat avanzado con fotos y música</li>
+          <li>🚀 <b>6 impulsos gratis</b> cada mes</li>
+          <li>🚫 Sin publicidad · 👑 Corona y perfil destacado</li>
+        </ul>
+        <button class="btn oro full grande" data-accion="pagar-premium">👑 Activar Premium — S/ <span data-precio-pro>5</span></button>
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <h3>Cómo activarlo — 3 pasos</h3>
+      <p class="nota">El pago se valida a mano: el administrador revisa tu captura y activa tu cuenta.</p>
+      <div class="yape-caja">
+        <div id="yapeQr"></div>
+        <div style="flex:1;min-width:250px">
+          <p style="font-size:15px;margin-bottom:6px"><b>1.</b> Yapea <b style="color:var(--morado)">S/ <span id="precioYape">5.00</span></b>
+            a <b id="yapeNombre">Angel Levano</b> <span id="yapeTel"></span></p>
+          <p style="font-size:15px;margin-bottom:6px"><b>2.</b> Toma captura del comprobante</p>
+          <p style="font-size:15px;margin-bottom:14px"><b>3.</b> Súbela aquí abajo y espera la aprobación</p>
+          <button class="btn mora" data-accion="pagar-premium">📤 Subir mi comprobante</button>
+        </div>
+      </div>
+      <div id="estadoPago" style="margin-top:16px"></div>
+    </div>
+  </div>
+</main>
+
+<!-- ==================== MI CUENTA ==================== -->
+<main class="vista" id="v-cuenta">
+  <div class="caja">
+    <div class="cab-panel">
+      <div><h2>Mi cuenta</h2><p id="subCuenta"></p></div>
+      <button class="btn suave" data-ir="inicio">← Volver</button>
+    </div>
+    <div class="pestanas" role="tablist" id="pestCuenta">
+      <button class="pest" role="tab" aria-selected="true" data-panel="c-pub">📦 Mis publicaciones</button>
+      <button class="pest" role="tab" aria-selected="false" data-panel="c-rec">📥 Propuestas <span class="mini-glob" id="gRec"></span></button>
+      <button class="pest" role="tab" aria-selected="false" data-panel="c-env">📤 Enviadas</button>
+      <button class="pest" role="tab" aria-selected="false" data-panel="c-act">🤝 En curso</button>
+      <button class="pest" role="tab" aria-selected="false" data-panel="c-his">🕓 Historial</button>
+      <button class="pest" role="tab" aria-selected="false" data-panel="c-fav">❤️ Favoritos</button>
+      <button class="pest" role="tab" aria-selected="false" data-panel="c-perf">👤 Perfil</button>
+    </div>
+    <div class="panel on" id="p-c-pub">
+      <div class="sec-cab"><h3>Mis publicaciones</h3>
+        <button class="btn pri sm" data-accion="publicar">+ Nueva publicación</button></div>
+      <div id="misPubs"></div>
+    </div>
+    <div class="panel" id="p-c-rec"><div id="listaRec"></div></div>
+    <div class="panel" id="p-c-env"><div id="listaEnv"></div></div>
+    <div class="panel" id="p-c-act"><div id="listaAct"></div></div>
+    <div class="panel" id="p-c-his"><div id="listaHis"></div></div>
+    <div class="panel" id="p-c-fav"><div class="grilla" id="listaFav"></div></div>
+    <div class="panel" id="p-c-perf">
+      <div class="tarjeta">
+        <h3>Mis datos</h3>
+        <form id="formPerfil">
+          <div style="display:flex;gap:18px;align-items:center;margin-bottom:16px;flex-wrap:wrap">
+            <div class="av-g av-xl" id="vistaAvatar"></div>
+            <div>
+              <label class="btn suave sm" for="perfilFoto">📁 Cambiar foto</label>
+              <input type="file" id="perfilFoto" accept="image/*" hidden>
+            </div>
+          </div>
+          <div class="dos">
+            <div><label class="et" for="pfNombre">Nombre</label><input class="campo" id="pfNombre" required></div>
+            <div><label class="et" for="pfCiudad">Ciudad</label><select class="campo" id="pfCiudad"></select></div>
+          </div>
+          <div class="dos">
+            <div><label class="et" for="pfTel">Teléfono / WhatsApp</label><input class="campo" id="pfTel" placeholder="956 000 000"></div>
+            <div><label class="et" for="pfRef">Referencia de dirección</label><input class="campo" id="pfRef" placeholder="Frente al parque"></div>
+          </div>
+          <label class="et" for="pfBio">Biografía</label>
+          <textarea class="campo" id="pfBio" rows="2" maxlength="300"></textarea>
+          <hr class="sep">
+          <label class="et" for="pfPass">Cambiar contraseña (opcional)</label>
+          <input class="campo" type="password" id="pfPass" placeholder="Nueva contraseña" autocomplete="new-password">
+          <div class="medidor" id="medPerfil"><i style="width:0"></i></div>
+          <button class="btn pri" type="submit">Guardar cambios</button>
+        </form>
+      </div>
+      <div class="tarjeta">
+        <h3>🔑 Seguridad — mi código de respaldo</h3>
+        <p class="nota">Con este código recuperas tu cuenta si olvidas la contraseña.
+          Guárdalo en una foto o en un papel.</p>
+        <div class="codigo-caja" id="miCodigo">—</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+          <button class="btn suave sm" type="button" id="btnCopiarMio">📋 Copiar</button>
+          <button class="btn suave sm" type="button" id="btnBajarMio">⬇️ Descargar mis datos de acceso</button>
+        </div>
+      </div>
+
+      <div class="tarjeta">
+        <h3>Mi ubicación en el mapa</h3>
+        <p class="nota">Sirve para que te encuentren personas cerca de ti. Puedes escribirla o usar tu GPS.</p>
+        <div class="dos">
+          <div><label class="et" for="pfLat">Latitud</label><input class="campo" id="pfLat" placeholder="-13.4098"></div>
+          <div><label class="et" for="pfLon">Longitud</label><input class="campo" id="pfLon" placeholder="-76.1322"></div>
+        </div>
+        <button class="btn suave" id="btnGps">📍 Usar mi ubicación actual</button>
+        <button class="btn pri" id="btnGuardarUbic">Guardar ubicación</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ==================== ADMINISTRACIÓN ==================== -->
+<main class="vista" id="v-admin">
+  <div class="caja">
+    <div class="cab-panel">
+      <div><h2>🛠️ Panel de administración</h2><p id="subAdmin"></p></div>
+      <button class="btn suave" data-ir="inicio">← Volver al sitio</button>
+    </div>
+    <div class="cifra-grid" id="cifrasAdmin"></div>
+    <div class="pestanas" role="tablist" id="pestAdmin">
+      <button class="pest" role="tab" aria-selected="true" data-panel="a-rep">📊 Reportes</button>
+      <button class="pest" role="tab" aria-selected="false" data-panel="a-usr">👥 Usuarios</button>
+      <button class="pest" role="tab" aria-selected="false" data-panel="a-art">📦 Publicaciones</button>
+      <button class="pest" role="tab" aria-selected="false" data-panel="a-pub">📣 Publicidad <span class="mini-glob" id="gPub"></span></button>
+      <button class="pest" role="tab" aria-selected="false" data-panel="a-pagos">💰 Cobros <span class="mini-glob" id="gPagos"></span></button>
+      <button class="pest" role="tab" aria-selected="false" data-panel="a-seg">🛡️ Trueques Seguros</button>
+      <button class="pest" role="tab" aria-selected="false" data-panel="a-marca">🎨 Marca</button>
+    </div>
+
+    <div class="panel on" id="p-a-rep">
+      <div class="tarjeta">
+        <div class="sec-cab" style="margin-bottom:6px">
+          <h3>📈 Personas que ingresaron al sistema</h3>
+          <select id="repRango" class="mini-sel">
+            <option value="7">Últimos 7 días</option>
+            <option value="14" selected>Últimos 14 días</option>
+            <option value="30">Últimos 30 días</option>
+          </select>
+        </div>
+        <p class="nota">Cada barra es un día. La barra azul son los ingresos y la línea morada,
+          las personas distintas que entraron.</p>
+        <div class="grafico-caja"><svg id="gIngresos" viewBox="0 0 720 260" class="grafico"></svg></div>
+      </div>
+
+      <div class="dos-cols">
+        <div class="tarjeta">
+          <h3>🤝 Trueques realizados</h3>
+          <p class="nota">Trueques cerrados por los dos lados, por semana.</p>
+          <div class="grafico-caja"><svg id="gTrueques" viewBox="0 0 720 240" class="grafico"></svg></div>
+          <div id="resumenTrueques" class="mini-cifras"></div>
+        </div>
+        <div class="tarjeta">
+          <h3>💰 Ingresos por Premium</h3>
+          <p class="nota">Soles cobrados por comprobantes de Yape aprobados, acumulado.</p>
+          <div class="grafico-caja"><svg id="gDinero" viewBox="0 0 720 240" class="grafico"></svg></div>
+          <div id="resumenDinero" class="mini-cifras"></div>
+        </div>
+      </div>
+
+      <div class="tarjeta">
+        <h3>🏙️ Actividad por ciudad</h3>
+        <div id="gCiudades"></div>
+      </div>
+    </div>
+
+    <div class="panel" id="p-a-usr">
+      <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center">
+        <input class="campo" id="buscaUsr" placeholder="Buscar por nombre o correo..." style="max-width:300px;margin:0">
+        <span id="contadorAdmins" class="eti oro"></span>
+        <button class="btn pri sm" id="btnCsvUsuarios">⬇️ Descargar usuarios (CSV)</button>
+        <button class="btn suave sm" id="btnJsonTodo">⬇️ Copia de seguridad (JSON)</button>
+      </div>
+      <div class="tarjeta">
+        <h3>➕ Crear una cuenta</h3>
+        <p class="nota">Útil para dar de alta a alguien que no se anima solo, o para crear otro
+          administrador. La persona entra con su correo o su celular y la clave que le pongas.</p>
+        <form id="formNuevoUsuario">
+          <div class="dos">
+            <div><label class="et" for="nuNombre">Nombre</label><input class="campo" id="nuNombre" required></div>
+            <div><label class="et" for="nuCiudad">Ciudad</label><select class="campo" id="nuCiudad"></select></div>
+          </div>
+          <div class="dos">
+            <div><label class="et" for="nuEmail">Correo</label><input class="campo" id="nuEmail" type="email" placeholder="persona@gmail.com"></div>
+            <div><label class="et" for="nuTel">Celular / WhatsApp</label><input class="campo" id="nuTel" placeholder="956 000 000"></div>
+          </div>
+          <div class="tres">
+            <div><label class="et" for="nuClave">Clave o PIN</label><input class="campo" id="nuClave" placeholder="4 números o 6 letras" required></div>
+            <div><label class="et" for="nuRol">Tipo de cuenta</label>
+              <select class="campo" id="nuRol"><option value="usuario">Usuario normal</option>
+                <option value="admin">Administrador</option></select></div>
+            <div><label class="et" for="nuPlan">Plan</label>
+              <select class="campo" id="nuPlan"><option value="gratis">Gratis</option>
+                <option value="premium">Premium (1 mes)</option></select></div>
+          </div>
+          <div class="error-c" id="errNuevo" hidden></div>
+          <button class="btn pri" type="submit">Crear cuenta</button>
+        </form>
+        <div id="resultadoNuevo"></div>
+      </div>
+
+      <div class="tabla-caja"><table class="tabla"><thead><tr>
+        <th>Usuario</th><th>Ciudad</th><th>Plan</th><th>Actividad</th><th>Estado</th><th>Acciones</th>
+      </tr></thead><tbody id="tUsuarios"></tbody></table></div>
+    </div>
+
+    <div class="panel" id="p-a-art">
+      <div class="tabla-caja"><table class="tabla"><thead><tr>
+        <th>Artículo</th><th>Categoría</th><th>Ciudad</th><th>Dueño</th><th>Estado</th><th>Acciones</th>
+      </tr></thead><tbody id="tArticulos"></tbody></table></div>
+    </div>
+
+    <div class="panel" id="p-a-pub">
+      <div class="tarjeta" id="cajaSolicitudes">
+        <h3>📥 Solicitudes por aprobar</h3>
+        <p class="nota">Los negocios que piden espacio desde la sección “Anúnciate en TRUEQUEA.PE”
+          llegan aquí. Nada se publica hasta que tú lo apruebes.</p>
+        <div id="listaSolicitudes"></div>
+      </div>
+      <div class="tarjeta">
+        <h3>📣 Crear anuncio publicitario</h3>
+        <p class="nota">Se muestra con efecto 3D en el listado. Al tocarlo se abre con el teléfono y el botón de WhatsApp.</p>
+        <form id="formAnuncio">
+          <label class="subir" for="anImg" id="zonaAn">🖼️ Clic para subir la imagen del anuncio</label>
+          <input type="file" id="anImg" accept="image/*" hidden>
+          <div class="dos">
+            <div><label class="et" for="anTitulo">Título</label><input class="campo" id="anTitulo" placeholder="Ferretería El Martillo" required></div>
+            <div><label class="et" for="anEmpresa">Anunciante</label><input class="campo" id="anEmpresa" placeholder="Publicidad local"></div>
+          </div>
+          <label class="et" for="anDesc">Descripción</label>
+          <textarea class="campo" id="anDesc" rows="2" placeholder="20% de descuento presentando este anuncio" required></textarea>
+          <div class="dos">
+            <div><label class="et" for="anTel">Teléfono visible</label><input class="campo" id="anTel" placeholder="956 000 000"></div>
+            <div><label class="et" for="anWa">Enlace de WhatsApp</label>
+              <input class="campo" id="anWa" placeholder="https://wa.me/qr/Z6T6N7FJTXCNH1"></div>
+          </div>
+          <div class="dos">
+            <div><label class="et" for="anWeb">Página web (opcional)</label><input class="campo" id="anWeb" placeholder="https://..."></div>
+            <div class="switch" style="border:none"><div><b>Banner destacado</b><small>Aparece arriba del listado</small></div>
+              <input type="checkbox" id="anDestacado"></div>
+          </div>
+          <button class="btn pri" type="submit">Publicar anuncio</button>
+        </form>
+      </div>
+      <div class="tabla-caja"><table class="tabla"><thead><tr>
+        <th>Anuncio</th><th>Contacto</th><th>Vistas</th><th>Clics</th><th>Estado</th><th>Acciones</th>
+      </tr></thead><tbody id="tAnuncios"></tbody></table></div>
+    </div>
+
+    <div class="panel" id="p-a-pagos">
+      <div class="tarjeta">
+        <h3>💜 Datos de cobro Premium</h3>
+        <p class="nota">Sube la foto de tu QR de Yape: los usuarios lo verán al comprar Premium.</p>
+        <form id="formYape">
+          <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+            <div id="vistaYape"></div>
+            <div>
+              <label class="btn suave sm" for="yapeImg">📁 Subir mi QR de Yape</label>
+              <input type="file" id="yapeImg" accept="image/*" hidden>
+            </div>
+          </div>
+          <div class="dos">
+            <div><label class="et" for="yapeNom">Nombre que aparece en Yape</label><input class="campo" id="yapeNom" placeholder="Angel Levano"></div>
+            <div><label class="et" for="yapeNum">Número de Yape</label><input class="campo" id="yapeNum" placeholder="956 000 000"></div>
+          </div>
+          <div class="tres">
+            <div><label class="et" for="yapePrecio">Premium al mes (S/)</label><input class="campo" id="yapePrecio" type="number" step="0.5" value="1"></div>
+            <div><label class="et" for="yapeImpulso">Impulso 24 h (S/)</label><input class="campo" id="yapeImpulso" type="number" step="0.5" value="1"></div>
+            <div><label class="et" for="yapeSeguro">Trueque Seguro (S/)</label><input class="campo" id="yapeSeguro" type="number" step="0.5" value="1"></div>
+          </div>
+          <div class="switch"><div><b>🤖 Leer los Yape automáticamente</b>
+            <small>El sistema lee la captura, revisa el monto, tu nombre y el número de
+              operación, y activa el Premium solo si todo cuadra</small></div>
+            <input type="checkbox" id="yapeAuto" checked></div>
+          <button class="btn pri" type="submit">Guardar datos de cobro</button>
+        </form>
+      </div>
+      <div class="sec-cab" style="margin:18px 0 12px">
+        <h3 style="font-size:17px">Comprobantes recibidos</h3>
+        <select id="filtroPagos" class="mini-sel">
+          <option value="">Todos</option><option value="pendiente">Solo pendientes</option>
+          <option value="premium">Premium</option><option value="impulso">Impulsos</option>
+          <option value="seguro">Trueques Seguros</option>
+        </select>
+      </div>
+      <div id="listaPagos"></div>
+    </div>
+
+    <div class="panel" id="p-a-seg">
+      <div class="tarjeta">
+        <h3>🛡️ Trueques con acompañamiento</h3>
+        <p class="nota">Cuando alguien contrata Trueque Seguro, aquí revisas a las dos personas,
+          sus fotos y das el visto bueno.</p>
+        <div id="listaSeguros"></div>
+      </div>
+      <div class="tarjeta">
+        <h3>⚠️ Revisión de seguridad automática</h3>
+        <p class="nota">Cuentas y publicaciones que conviene mirar: pocas estrellas, sin teléfono,
+          sin fotos propias o con fotos repetidas de otra cuenta.</p>
+        <div id="listaRiesgo"></div>
+      </div>
+    </div>
+
+    <div class="panel" id="p-a-marca">
+      <div class="tarjeta">
+        <h3>🎨 Logo e identidad</h3>
+        <p class="nota">Tu logo aparece en la barra, el pie y las ventanas de inicio de sesión.</p>
+        <form id="formMarca">
+          <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-bottom:16px">
+            <div id="vistaLogo" style="width:104px;height:104px;border-radius:22px;overflow:hidden;
+              background:var(--superficie2);border:1px solid var(--borde);display:flex;align-items:center;
+              justify-content:center;font-size:13px;color:var(--sub)"></div>
+            <div>
+              <label class="btn suave sm" for="marcaImg">📁 Subir mi logo</label>
+              <input type="file" id="marcaImg" accept="image/*" hidden>
+              <button class="btn suave sm" type="button" id="btnQuitarLogo">Quitar</button>
+            </div>
+          </div>
+          <div class="dos">
+            <div><label class="et" for="marcaNombre">Nombre del sitio</label><input class="campo" id="marcaNombre"></div>
+            <div><label class="et" for="marcaColor">Color principal</label>
+              <input class="campo" id="marcaColor" type="color" style="height:46px;padding:4px"></div>
+          </div>
+          <label class="et" for="marcaLema">Lema de la barra superior</label>
+          <input class="campo" id="marcaLema">
+          <button class="btn pri" type="submit">Guardar identidad</button>
+        </form>
+      </div>
+
+      <div class="tarjeta">
+        <h3>☁️ Base de datos en la nube</h3>
+        <p class="nota">Cuando está encendida, todos los usuarios comparten la misma información
+          desde cualquier celular o computadora, y los cambios se ven al instante.</p>
+        <div id="estadoNube" class="estado-nube"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+          <button class="btn pri sm" type="button" id="btnSincronizar">🔄 Sincronizar ahora</button>
+          <button class="btn suave sm" type="button" id="btnReconectar">🔌 Probar conexión</button>
+          <button class="btn suave sm" type="button" id="btnDiagnostico">🩺 Diagnóstico completo</button>
+          <button class="btn suave sm" type="button" id="btnJsonNube">⬇️ Bajar copia</button>
+          <button class="btn suave sm" type="button" id="btnCopias">🛟 Copias de seguridad</button>
+          <button class="btn suave sm" type="button" id="btnSeguridad">🔐 Seguridad</button>
+        </div>
+      </div>
+
+      <div class="tarjeta">
+        <h3>📞 Mis datos de contacto para publicidad</h3>
+        <p class="nota">Esto es lo que ven los negocios en la sección “Anúnciate en TRUEQUEA.PE”,
+          y es el WhatsApp al que llegan los avisos de interesados.</p>
+        <form id="formContacto">
+          <div class="dos">
+            <div><label class="et" for="coNombre">Nombre visible</label><input class="campo" id="coNombre" placeholder="Angel Levano"></div>
+            <div><label class="et" for="coCargo">Cargo</label><input class="campo" id="coCargo" placeholder="Administrador de Truequea PE"></div>
+          </div>
+          <div class="dos">
+            <div><label class="et" for="coTel">Teléfono / WhatsApp</label><input class="campo" id="coTel" placeholder="956 000 000"></div>
+            <div><label class="et" for="coEmail">Correo</label><input class="campo" id="coEmail" placeholder="contacto@truequea.pe"></div>
+          </div>
+          <div class="dos">
+            <div><label class="et" for="coWa">Enlace de WhatsApp</label><input class="campo" id="coWa" placeholder="https://wa.me/qr/Z6T6N7FJTXCNH1"></div>
+            <div><label class="et" for="coHorario">Horario de atención</label><input class="campo" id="coHorario" placeholder="Lunes a sábado · 9:00 a 20:00"></div>
+          </div>
+          <label class="et" for="coTexto">Mensaje de la sección</label>
+          <textarea class="campo" id="coTexto" rows="2"></textarea>
+          <div class="dos">
+            <div><label class="et" for="coWhatsapp">📱 Mi WhatsApp (aquí llega la gente)</label>
+              <input class="campo" id="coWhatsapp" placeholder="956 000 000"></div>
+          </div>
+          <div class="aviso"><b>📢 Aviso obligatorio al publicar:</b> cada vez que alguien sube
+            una publicación, se le pide avisarte por WhatsApp a este número. No se puede desactivar,
+            porque es la forma de enterarte al momento.</div>
+          <div class="switch"><div><b>Avisarme por WhatsApp cuando haya un interesado</b>
+            <small>Aparece un botón para abrir el chat con el mensaje ya escrito</small></div>
+            <input type="checkbox" id="coAviso"></div>
+          <button class="btn pri" type="submit">Guardar contacto</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ==================== MODALES ==================== -->
+<div class="capa" id="mAuth">
+  <div class="modal">
+    <button class="x" data-cerrar>✕</button>
+    <div style="text-align:center;margin-bottom:14px">
+      <img id="logoAuth" style="width:56px;height:56px;border-radius:16px;margin:0 auto 12px" alt="">
+      <h2 id="authTitulo">Entrar a Truequea PE</h2>
+      <p class="sub" id="authSub" style="margin-bottom:0">Usa tu correo o tu cuenta de Google</p>
+    </div>
+
+    <button class="btn express full" id="btnExpress" type="button">
+      ⚡ Crear mi cuenta en 10 segundos
+      <small>Solo tu nombre, tu celular y 4 números</small>
+    </button>
+    <div class="divisor">o entra como siempre</div>
+
+    <button class="social" id="btnGoogle">
+      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.9c1.7-1.57 2.7-3.88 2.7-6.62z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.9-2.26c-.8.54-1.84.86-3.06.86-2.35 0-4.34-1.59-5.05-3.72H.96v2.33A9 9 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.95 10.7A5.4 5.4 0 0 1 3.66 9c0-.59.1-1.17.29-1.7V4.97H.96A9 9 0 0 0 0 9c0 1.45.35 2.83.96 4.03l2.99-2.33z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .96 4.97l2.99 2.33C4.66 5.17 6.65 3.58 9 3.58z"/></svg>
+      Continuar con Google
+    </button>
+    <button class="social fb" id="btnFacebook">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg>
+      Continuar con Facebook
+    </button>
+
+    <div class="divisor" id="divisorSocial">o con tu correo</div>
+
+    <form id="formAuth">
+      <div id="soloReg" hidden>
+        <label class="et" for="aNombre">¿Cómo te llamas?</label>
+        <input class="campo" id="aNombre" placeholder="Angel Levano" autocomplete="name">
+        <label class="et" for="aCiudad">¿De dónde eres?</label>
+        <select class="campo" id="aCiudad"></select>
+      </div>
+      <label class="et" for="aEmail">Correo o número de celular</label>
+      <input class="campo" id="aEmail" placeholder="tucorreo@gmail.com  ·  956 000 000" autocomplete="username" required>
+      <label class="et" for="aPass">Contraseña o PIN</label>
+      <div class="campo-ojo">
+        <input class="campo" type="password" id="aPass" autocomplete="current-password" required>
+        <button type="button" class="ojo" id="ojoAuth" aria-label="Ver contraseña">👁️</button>
+      </div>
+      <p class="pista-pass" id="pistaPass" hidden>Con 6 caracteres basta. Usa algo que recuerdes fácil,
+        como <b>chincha2026</b>.</p>
+      <div class="medidor" id="medAuth" hidden><i style="width:0"></i></div>
+      <div class="error-c" id="errAuth" hidden></div>
+      <button class="btn pri full" type="submit" id="btnAuth">Entrar</button>
+    </form>
+    <p class="cambio" id="cambioAuth">¿No tienes cuenta? <button type="button">Crear una cuenta</button></p>
+    <p class="cambio"><button type="button" id="btnOlvide">Olvidé mi contraseña</button></p>
+    <p class="legal">Tus datos se guardan solo en este navegador (Ley N.° 29733).</p>
+  </div>
+</div>
+
+<div class="capa" id="mGoogle">
+  <div class="modal">
+    <button class="x" data-cerrar>✕</button>
+    <h2 id="gTitulo">Entrar con Google</h2>
+    <p class="sub">Escribe el correo de tu cuenta y entras al instante.</p>
+    <form id="formGoogle">
+      <label class="et" for="gEmail">Tu correo</label>
+      <input class="campo" type="email" id="gEmail" placeholder="tucorreo@gmail.com" required>
+      <label class="et" for="gNombre">Tu nombre</label>
+      <input class="campo" id="gNombre" placeholder="Como quieres que te vean">
+      <label class="et" for="gCiudad">Tu ciudad</label>
+      <select class="campo" id="gCiudad"></select>
+      <button class="btn pri full" type="submit">Entrar</button>
+    </form>
+  </div>
+</div>
+
+<div class="capa" id="mPublicar">
+  <div class="modal ancho">
+    <button class="x" data-cerrar>✕</button>
+    <h2 id="pubTitulo">Publicar artículo</h2>
+    <p class="sub">Se guarda con fecha, hora y tu ubicación en el mapa.</p>
+    <form id="formPublicar">
+      <input type="hidden" id="pubId">
+      <label class="subir" for="pubFotos" id="zonaFotos">📷 Clic para subir hasta 6 fotos</label>
+      <input type="file" id="pubFotos" accept="image/*" multiple hidden>
+      <div class="minis" id="minisPub"></div>
+      <label class="et" for="pubNombre">Título del artículo</label>
+      <input class="campo" id="pubNombre" placeholder="Ej: Bicicleta rodado 26" required>
+      <div class="dos">
+        <div><label class="et" for="pubCat">Categoría</label><select class="campo" id="pubCat" required></select></div>
+        <div><label class="et" for="pubCond">Condición</label>
+          <select class="campo" id="pubCond"><option value="nuevo">Nuevo</option>
+            <option value="como_nuevo">Como nuevo</option><option value="usado" selected>Usado</option>
+            <option value="para_reparar">Para reparar</option></select></div>
+      </div>
+      <label class="et" for="pubCiudad">Ciudad</label>
+      <select class="campo" id="pubCiudad" required></select>
+      <div id="filaVip" hidden>
+        <label class="et" for="pubVip">💎 ¿Va en la vitrina VIP? (solo Premium)</label>
+        <select class="campo" id="pubVip"></select>
+        <p class="nota" style="margin:-4px 0 12px">En la vitrina VIP solo participan cuentas Premium:
+          menos gente, pero más seria.</p>
+      </div>
+      <label class="et" for="pubBusca">¿Qué buscas a cambio?</label>
+      <input class="campo" id="pubBusca" placeholder="Ej: Audífonos, una plancha o algo parecido" required>
+      <p class="nota" style="margin:-4px 0 12px">En Truequea PE no se venden cosas: solo se cambian. Por eso
+        no pedimos precio.</p>
+      <label class="et" for="pubDesc">Descripción</label>
+      <textarea class="campo" id="pubDesc" rows="3" placeholder="Detalles, estado real, motivo del trueque"></textarea>
+      <button class="btn pri full" type="submit" id="btnPublicar">Publicar</button>
+    </form>
+  </div>
+</div>
+
+<div class="capa" id="mFicha"><div class="modal ancho limpio">
+  <button class="x" data-cerrar>✕</button><div id="ficha"></div></div></div>
+
+<div class="capa" id="mPropuesta">
+  <div class="modal">
+    <button class="x" data-cerrar>✕</button>
+    <h2>Proponer trueque</h2>
+    <p class="sub" id="propSub"></p>
+    <form id="formPropuesta">
+      <input type="hidden" id="propArt">
+      <label class="et" for="propOfrezco">¿Qué artículo tuyo ofreces?</label>
+      <select class="campo" id="propOfrezco"></select>
+      <div id="analisisProp"></div>
+      <label class="et" for="propMsg">Mensaje</label>
+      <textarea class="campo" id="propMsg" rows="3" placeholder="Hola, te propongo cambiar mi..."></textarea>
+      <button class="btn pri full" type="submit">Enviar propuesta</button>
+    </form>
+  </div>
+</div>
+
+<div class="capa" id="mChat">
+  <div class="modal medio limpio">
+    <button class="x" data-cerrar>✕</button>
+    <div class="chat-cab" id="chatCab"></div>
+    <div class="chat-pro" id="chatPro" hidden>
+      <div class="chat-buscar">
+        <input type="search" id="chatBuscar" placeholder="🔎 Buscar en esta conversación (Premium)" autocomplete="off">
+      </div>
+      <div class="frases" id="chatFrases"></div>
+    </div>
+    <div class="chat-cuerpo" id="chatCuerpo"></div>
+    <form class="chat-pie" id="formChat">
+      <label class="clip" for="chatFoto" id="chatClip" hidden title="Enviar una foto (Premium)">📎</label>
+      <input type="file" id="chatFoto" accept="image/*" hidden>
+      <input type="text" id="chatTexto" placeholder="Escribe tu mensaje..." autocomplete="off">
+      <button class="btn pri sm" type="submit">Enviar</button>
+    </form>
+  </div>
+</div>
+
+<div class="capa" id="mMensajes">
+  <div class="modal ancho">
+    <button class="x" data-cerrar>✕</button>
+    <h2>Mis mensajes</h2><p class="sub">Conversaciones sobre tus trueques.</p>
+    <div id="listaChats"></div>
+  </div>
+</div>
+
+<div class="capa" id="mNotis">
+  <div class="modal"><button class="x" data-cerrar>✕</button>
+    <h2>Notificaciones</h2><div id="listaNotis"></div></div>
+</div>
+
+<div class="capa" id="mCalificar">
+  <div class="modal">
+    <button class="x" data-cerrar>✕</button>
+    <h2>Califica el trueque</h2><p class="sub" id="calSub"></p>
+    <form id="formCalificar">
+      <input type="hidden" id="calId">
+      <div class="est-eleg" id="estEleg">
+        <button type="button" data-v="1">★</button><button type="button" data-v="2">★</button>
+        <button type="button" data-v="3">★</button><button type="button" data-v="4">★</button>
+        <button type="button" data-v="5">★</button>
+      </div>
+      <label class="et" for="calCom">Comentario</label>
+      <textarea class="campo" id="calCom" rows="3" placeholder="¿Cómo te fue?"></textarea>
+      <button class="btn pri full" type="submit">Enviar calificación</button>
+    </form>
+  </div>
+</div>
+
+<div class="capa" id="mTrueque">
+  <div class="modal ancho"><button class="x" data-cerrar>✕</button><div id="detTrueque"></div></div>
+</div>
+
+<div class="capa" id="mPerfil">
+  <div class="modal ancho"><button class="x" data-cerrar>✕</button><div id="perfilPub"></div></div>
+</div>
+
+<div class="capa" id="mAnuncio">
+  <div class="modal medio limpio"><button class="x" data-cerrar>✕</button><div id="detAnuncio"></div></div>
+</div>
+
+<div class="capa" id="mPago">
+  <div class="modal">
+    <button class="x" data-cerrar>✕</button>
+    <h2 id="pagoTitulo">Subir comprobante de Yape</h2>
+    <p class="sub" id="pagoDetalle"></p>
+    <div class="pago-resumen">
+      <div id="pagoQr"></div>
+      <div>
+        <p>Yapea <b class="pago-monto">S/ <span id="pagoMonto">1.00</span></b></p>
+        <p>a <b id="pagoYapeNom">Angel Levano</b></p>
+        <p class="nota">Luego sube la captura aquí abajo.</p>
+      </div>
+    </div>
+    <form id="formPago">
+      <label class="subir" for="pagoImg" id="zonaPago">📸 Clic para subir la captura del Yape</label>
+      <input type="file" id="pagoImg" accept="image/*" hidden>
+      <div class="lectura" id="lecturaYape" hidden></div>
+      <label class="et" for="pagoNota">Nota para el administrador (opcional)</label>
+      <input class="campo" id="pagoNota" placeholder="Yapeé desde el número 9XX XXX XXX">
+      <button class="btn mora full" type="submit">Enviar comprobante</button>
+    </form>
+  </div>
+</div>
+
+<div class="capa" id="mInfo">
+  <div class="modal ancho"><button class="x" data-cerrar>✕</button><div id="infoCuerpo"></div></div>
+</div>
+
+<div class="capa" id="mConfirmar">
+  <div class="modal" style="max-width:400px">
+    <h2 id="confTitulo">¿Confirmar?</h2>
+    <p class="sub" id="confTexto"></p>
+    <div id="confExtra"></div>
+    <div style="display:flex;gap:10px;margin-top:16px">
+      <button class="btn suave" style="flex:1" data-cerrar>Cancelar</button>
+      <button class="btn rojo" style="flex:1" id="confSi">Sí, continuar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Código de respaldo que se entrega al crear la cuenta -->
+<div class="capa" id="mCodigo">
+  <div class="modal" style="max-width:440px">
+    <button class="x" data-cerrar>✕</button>
+    <div style="text-align:center">
+      <div style="font-size:44px">🔑</div>
+      <h2>Guarda tu código de respaldo</h2>
+      <p class="sub">Si algún día olvidas tu contraseña, con este código la cambias al instante.
+        No necesitas correo ni internet.</p>
+      <div class="codigo-caja" id="codigoTxt">TRUEQUEA-0000</div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px">
+        <button class="btn suave sm" id="btnCopiarCodigo">📋 Copiar</button>
+        <button class="btn suave sm" id="btnBajarCodigo">⬇️ Descargar</button>
+      </div>
+      <p class="legal" style="margin-top:16px">También lo puedes ver siempre en
+        Mi cuenta → Perfil → Seguridad.</p>
+      <button class="btn pri full" style="margin-top:10px" data-cerrar>Ya lo guardé</button>
+    </div>
+  </div>
+</div>
+
+<!-- Recuperar la cuenta con el código de respaldo -->
+<div class="capa" id="mRecuperar">
+  <div class="modal">
+    <button class="x" data-cerrar>✕</button>
+    <h2>Recuperar mi cuenta</h2>
+    <p class="sub">Escribe tu correo y el código de respaldo que te dimos al registrarte.</p>
+    <form id="formRecuperar">
+      <label class="et" for="recEmail">Correo</label>
+      <input class="campo" type="email" id="recEmail" required>
+      <label class="et" for="recCodigo">Código de respaldo</label>
+      <input class="campo" id="recCodigo" placeholder="TRUEQUEA-1234" required>
+      <label class="et" for="recPass">Nueva contraseña</label>
+      <input class="campo" type="password" id="recPass" placeholder="Mínimo 6 caracteres" required>
+      <div class="error-c" id="errRec" hidden></div>
+      <button class="btn pri full" type="submit">Cambiar contraseña y entrar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Reserva Premium -->
+<div class="capa" id="mReserva">
+  <div class="modal">
+    <button class="x" data-cerrar>✕</button>
+    <span class="pro-badge">PREMIUM</span>
+    <h2 style="margin-top:8px">Reservar mientras conversan</h2>
+    <p class="sub" id="resSub"></p>
+    <form id="formReserva">
+      <input type="hidden" id="resArt">
+      <label class="et" for="resHoras">¿Por cuánto tiempo?</label>
+      <select class="campo" id="resHoras"></select>
+      <label class="et" for="resNota">Nota para el dueño (opcional)</label>
+      <input class="campo" id="resNota" placeholder="Estoy yendo a verlo, no lo cambies todavía">
+      <p class="nota">Máximo un día. Cuando vence, el artículo vuelve solo a estar disponible
+        para todos.</p>
+      <button class="btn mora full" type="submit">🔒 Reservar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Solicitud de publicidad -->
+<div class="capa" id="mAnunciate">
+  <div class="modal">
+    <button class="x" data-cerrar>✕</button>
+    <h2>Quiero anunciar mi negocio</h2>
+    <p class="sub">Deja tus datos: el administrador revisa la solicitud y publica tu anuncio.</p>
+    <form id="formSolicitud">
+      <label class="subir" for="solImg" id="zonaSol">🖼️ Sube la imagen o el logo de tu negocio</label>
+      <input type="file" id="solImg" accept="image/*" hidden>
+      <div class="dos">
+        <div><label class="et" for="solNombre">Tu nombre</label><input class="campo" id="solNombre" required></div>
+        <div><label class="et" for="solNegocio">Nombre del negocio</label><input class="campo" id="solNegocio" required></div>
+      </div>
+      <div class="dos">
+        <div><label class="et" for="solTel">Teléfono / WhatsApp</label><input class="campo" id="solTel" placeholder="956 000 000" required></div>
+        <div><label class="et" for="solWeb">Página o Facebook (opcional)</label><input class="campo" id="solWeb"></div>
+      </div>
+      <label class="et" for="solDesc">¿Qué quieres que diga el anuncio?</label>
+      <textarea class="campo" id="solDesc" rows="3" placeholder="20% de descuento presentando este anuncio" required></textarea>
+      <button class="btn pri full" type="submit">Enviar solicitud</button>
+    </form>
+  </div>
+</div>
+
+<!-- ❤️ Quiero esto (Premium) -->
+<div class="capa" id="mDeseo">
+  <div class="modal">
+    <button class="x" data-cerrar>✕</button>
+    <span class="pro-badge">PREMIUM</span>
+    <h2 style="margin-top:8px">❤️ Quiero esto</h2>
+    <p class="sub">Di qué buscas y qué entregas. Apenas alguien lo publique, te avisamos solo.</p>
+    <form id="formDeseo">
+      <input type="hidden" id="deId">
+      <label class="et" for="deTitulo">¿Qué quieres conseguir?</label>
+      <input class="campo" id="deTitulo" placeholder="Ej: PlayStation 5" required>
+      <label class="et" for="dePalabras">Otras formas de escribirlo (para no perderte ninguna)</label>
+      <input class="campo" id="dePalabras" placeholder="ps5, play 5, playstation, consola">
+      <div class="dos">
+        <div><label class="et" for="deCat">Categoría</label><select class="campo" id="deCat"></select></div>
+        <div><label class="et" for="deVip">💎 Vitrina VIP</label><select class="campo" id="deVip"></select></div>
+      </div>
+      <hr class="sep">
+      <label class="et" for="deOfrezco">¿Qué entregas a cambio?</label>
+      <input class="campo" id="deOfrezco" placeholder="Ej: Redmi Note 13 + accesorios" required>
+      <label class="et" for="deAdicional">¿Agregas algo de dinero para emparejar? (opcional)</label>
+      <input class="campo" id="deAdicional" type="number" min="0" step="10" placeholder="300">
+      <p class="nota">Esto es solo para tu pedido: en las publicaciones de Truequea PE nunca
+        aparecen precios.</p>
+      <button class="btn mora full" type="submit">Guardar mi pedido</button>
+    </form>
+  </div>
+</div>
+
+<!-- 👀 Ver interesados -->
+<div class="capa" id="mInteresados">
+  <div class="modal ancho"><button class="x" data-cerrar>✕</button><div id="interCuerpo"></div></div>
+</div>
+
+<!-- 📈 Análisis del trueque -->
+<div class="capa" id="mAnalisis">
+  <div class="modal ancho"><button class="x" data-cerrar>✕</button><div id="analisisCuerpo"></div></div>
+</div>
+
+<!-- 🚀 Impulsar publicación -->
+<div class="capa" id="mImpulsar">
+  <div class="modal">
+    <button class="x" data-cerrar>✕</button>
+    <h2>🚀 Impulsar mi publicación</h2>
+    <p class="sub">Tu publicación aparece entre los primeros resultados, arriba de todas las demás.</p>
+    <div class="imp-vista">
+      <img id="impMiniFoto" alt="">
+      <div><span class="sello azulf">🚀 Impulsado</span>
+        <b id="impTitulo">—</b>
+        <span class="nota">Así se verá en el listado</span></div>
+    </div>
+    <form id="formImpulso">
+      <label class="et" for="impHoras">¿Por cuánto tiempo?</label>
+      <select class="campo" id="impHoras"></select>
+      <p class="nota">Se activa apenas el administrador confirme tu Yape. Sirve igual para cuentas
+        gratuitas y Premium.</p>
+      <button class="btn oro full" type="submit">Continuar al pago</button>
+    </form>
+  </div>
+</div>
+
+<!-- 🛡️ Trueque Seguro -->
+<div class="capa" id="mSeguro">
+  <div class="modal ancho"><button class="x" data-cerrar>✕</button><div id="segCuerpo"></div></div>
+</div>
+
+<!-- ⚡ Registro exprés -->
+<div class="capa" id="mExpress">
+  <div class="modal" style="max-width:430px">
+    <button class="x" data-cerrar>✕</button>
+    <div style="text-align:center;margin-bottom:6px">
+      <div class="ex-emo">⚡</div>
+      <h2>Tu cuenta en 10 segundos</h2>
+      <p class="sub">Sin correos, sin confirmaciones, sin complicarte.</p>
+    </div>
+    <form id="formExpress">
+      <label class="et" for="exNombre">1. ¿Cómo te llamas?</label>
+      <input class="campo grande" id="exNombre" placeholder="Angel Levano" autocomplete="name" required>
+
+      <label class="et" for="exTel">2. Tu celular (con este entras después)</label>
+      <input class="campo grande" id="exTel" type="tel" inputmode="numeric"
+             placeholder="956 000 000" autocomplete="tel" required>
+
+      <label class="et" for="exPin">3. Inventa 4 números que recuerdes</label>
+      <input class="campo grande pin" id="exPin" inputmode="numeric" maxlength="4"
+             placeholder="1234" autocomplete="off" required>
+      <p class="pista-pass">Ese es tu PIN. Sirve igual que una contraseña, pero es más fácil
+        de recordar. Te damos además un código de respaldo por si lo olvidas.</p>
+
+      <label class="et" for="exCiudad">¿De dónde eres?</label>
+      <select class="campo" id="exCiudad"></select>
+
+      <div class="error-c" id="errEx" hidden></div>
+      <button class="btn pri full grande" type="submit">Crear mi cuenta y entrar</button>
+      <p class="legal">Tus datos se guardan solo en este navegador (Ley N.° 29733).</p>
+    </form>
+  </div>
+</div>
+
+<!-- 🔌 Diagnóstico de la nube -->
+<div class="capa" id="mDiag">
+  <div class="modal ancho"><button class="x" data-cerrar>✕</button><div id="diagCuerpo"></div></div>
+</div>
+
+<!-- 🛟 Copias de seguridad -->
+<div class="capa" id="mCopias">
+  <div class="modal ancho"><button class="x" data-cerrar>✕</button><div id="copiasCuerpo"></div></div>
+</div>
+
+<!-- 💬 Bienvenida con WhatsApp -->
+<div class="capa" id="mWhatsApp">
+  <div class="modal" style="max-width:400px">
+    <button class="x" data-cerrar>✕</button>
+    <div id="waCuerpo"></div>
+  </div>
+</div>
+
+<!-- 🔐 Seguridad -->
+<div class="capa" id="mSeguridad">
+  <div class="modal ancho"><button class="x" data-cerrar>✕</button><div id="seguridadCuerpo"></div></div>
+</div>
+
+<!-- 🔑 Cambiar la clave de alguien -->
+<div class="capa" id="mClave">
+  <div class="modal">
+    <button class="x" data-cerrar>✕</button>
+    <h2>🔑 Clave de <span id="claveNombre">—</span></h2>
+    <p class="sub">Las contraseñas se guardan con huella: <b>nadie puede verlas</b>, ni tú.
+      Lo que sí puedes es ponerle una nueva y pasársela.</p>
+    <form id="formClave">
+      <input type="hidden" id="claveId">
+      <label class="et" for="claveNueva">Clave nueva (4 números o 6 letras)</label>
+      <input class="campo grande" id="claveNueva" required>
+      <button class="btn pri full" type="submit">Cambiar la clave</button>
+    </form>
+    <div id="claveResultado"></div>
+  </div>
+</div>
+
+<!-- 🎵 Música -->
+<div class="capa" id="mMusica">
+  <div class="modal" style="max-width:420px">
+    <button class="x" data-cerrar>✕</button>
+    <div style="text-align:center;margin-bottom:10px">
+      <h2>🎧 Música</h2>
+      <p class="sub" style="margin-bottom:0">Pon tus canciones mientras truequeas</p>
+    </div>
+    <div id="musCuerpo"></div>
+  </div>
+</div>
+
+<!-- 🤖 Asistente -->
+<button class="burbuja-bot" id="btnBot" title="¿Cómo funciona Truequea PE?" aria-label="Ayuda">
+  <span>💬</span>
+</button>
+<div class="bot" id="bot" hidden>
+  <div class="bot-cab">
+    <div class="bot-av">🤖</div>
+    <div><b>Asistente Truequea</b><small id="botEstado">Te explico todo en criollo</small></div>
+    <button class="x" id="botCerrar" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="bot-cuerpo" id="botCuerpo"></div>
+  <div class="bot-chips" id="botChips"></div>
+  <form class="bot-pie" id="botForm">
+    <button type="button" class="bot-mic" id="botMic" title="Hablar" aria-label="Hablar">🎤</button>
+    <input id="botTexto" placeholder="Pregúntame o di: reproduce..." autocomplete="off">
+    <button class="btn pri sm" type="submit">➤</button>
+  </form>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- módulos del sistema, en este orden -->
+<script src="js/01-config.js"></script>
+<script src="js/02-sync.js"></script>
+<script src="js/03-interfaz.js"></script>
+<script src="js/04-acciones.js"></script>
+<script src="js/05-paneles.js"></script>
+<script src="js/06-funciones.js"></script>
+<script src="js/07-ubicacion.js"></script>
+<script src="js/08-tendencias.js"></script>
+<script src="js/09-asistente.js"></script>
+<script src="js/10-musica.js"></script>
+<script src="js/11-seguridad.js"></script>
+<script src="js/12-eventos.js"></script>
+<script src="js/13-servidor.js"></script>
+<script src="js/14-nube.js"></script>
+</body>
+</html>
